@@ -519,29 +519,27 @@ analyzeBtn.addEventListener(
 
             await runSilero(audioFloat);
 
+
             console.log(
-                "1. Before Padding:",
+                "Raw Segments:",
                 speechSegments
             );
+
 
             console.log(
                 "Segment Count:",
                 speechSegments.length
             );
 
-            let finalSegments = applyPadding(speechSegments);
 
-            console.log(
-                "After Padding:",
-                finalSegments
+            const srtText = generateSRT(
+                speechSegments
             );
 
-            console.log(
-                "Final Segments:",
-                finalSegments
-            );
-    
-            const srtText = generateSRT(finalSegments);
+
+            generatedSRT = srtText;
+
+            downloadBtn.disabled = false;
 
             generatedSRT = srtText;
             downloadBtn.disabled = false;
@@ -594,25 +592,6 @@ function formatSRTTime(seconds) {
         + "," +
         String(ms).padStart(3, "0")
     );
-
-}
-
-function applyPadding(segments) {
-
-    return segments.map(segment => {
-
-        return {
-            start: Math.max(
-                0,
-                segment.start - speechPadding / 1000
-            ),
-
-            end:
-                segment.end +
-                speechPadding / 1000
-        };
-
-    });
 
 }
 
