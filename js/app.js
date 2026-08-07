@@ -459,11 +459,11 @@ function applyPadding(segments) {
 
         start: Math.max(
             0,
-            segment.start - speechPadding
+            segment.start - speechPadding / 1000
         ),
 
         end:
-            segment.end + speechPadding
+            segment.end + speechPadding / 1000
 
     }));
 
