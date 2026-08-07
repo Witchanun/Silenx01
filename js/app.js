@@ -660,3 +660,5 @@ downloadBtn.addEventListener(
 
     }
 );
+
+startSilenX();
