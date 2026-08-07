@@ -406,7 +406,7 @@ async function runSilero(audio) {
 
             silenceStart = null;
 
-            iif(speechStart === null) {
+            if(speechStart === null) {
 
                 speechStart = Math.max(
                     0,
