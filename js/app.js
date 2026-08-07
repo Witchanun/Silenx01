@@ -499,6 +499,12 @@ analyzeBtn.addEventListener(
             await runSilero(audioFloat);
 
 
+            console.log(
+                "Raw Segments:",
+                speechSegments
+            );
+
+
             const srtText = generateSRT(
                 speechSegments
             );
@@ -612,34 +618,37 @@ function downloadSRT(text) {
     );
 
 
-    const url = URL.createObjectURL(blob);
+    const url =
+        URL.createObjectURL(blob);
 
 
-    const a = document.createElement("a");
+    const a =
+        document.createElement("a");
+
 
     a.href = url;
 
-    a.download = "SilentCut.srt";
+    a.download = "SilenX.srt";
 
     a.click();
 
-    setTimeout(() => {
 
-        URL.revokeObjectURL(url);
-
-    }, 100);
+    URL.revokeObjectURL(url);
 
 }
 
-downloadBtn.addEventListener("click", () => {
+downloadBtn.addEventListener(
+    "click",
+    () => {
 
-    if (!generatedSRT) {
-        return;
+        if (!generatedSRT) {
+            return;
+        }
+
+
+        downloadSRT(
+            generatedSRT
+        );
+
     }
-
-    downloadSRT(generatedSRT);
-
-});
-
-
-startSilenX();
+);
