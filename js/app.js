@@ -519,27 +519,10 @@ analyzeBtn.addEventListener(
             );
 
 
-            const finalSegments =
-                applyPadding(
-                    speechSegments
-                );
-
             console.log(
-                "Padding Value:",
-                speechPadding
+                "Raw Segments:",
+                speechSegments
             );
-
-            console.log(
-                "Final Segments:",
-                finalSegments
-            );
-
-            const srtText =
-                generateSRT(
-                    finalSegments
-                );
-
-            generatedSRT = srtText;
 
             downloadBtn.disabled = false;
 
@@ -663,13 +646,31 @@ downloadBtn.addEventListener(
     "click",
     () => {
 
-        if (!generatedSRT) {
+        if (speechSegments.length === 0) {
             return;
         }
 
 
+        const finalSegments =
+            applyPadding(
+                speechSegments
+            );
+
+
+        console.log(
+            "Download Final Segments:",
+            finalSegments
+        );
+
+
+        const srtText =
+            generateSRT(
+                finalSegments
+            );
+
+
         downloadSRT(
-            generatedSRT
+            srtText
         );
 
     }
