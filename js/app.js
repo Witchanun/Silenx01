@@ -491,10 +491,7 @@ async function runSilero(audio) {
 
 }
 
-console.log(
-    "Segment Count:",
-    speechSegments.length
-);
+
 
 analyzeBtn.addEventListener(
     "click",
@@ -527,6 +524,10 @@ analyzeBtn.addEventListener(
                 speechSegments
             );
 
+            console.log(
+                "Segment Count:",
+                speechSegments.length
+            );
 
             let finalSegments = applyPadding(speechSegments);
 
