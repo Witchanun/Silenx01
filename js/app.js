@@ -518,28 +518,27 @@ analyzeBtn.addEventListener(
             await runSilero(audioFloat);
 
             console.log(
-                "Before Padding:",
+                "1. Before Padding:",
                 speechSegments
             );
 
 
             let finalSegments = applyPadding(speechSegments);
 
-
             console.log(
                 "After Padding:",
                 finalSegments
             );
-
-
-            finalSegments = removeOverlap(finalSegments);
-
 
             console.log(
                 "Final Segments:",
                 finalSegments
             );
 
+            console.log(
+                "3. Final Before SRT:",
+                finalSegments
+            );
 
             const srtText = generateSRT(finalSegments);
 
@@ -594,46 +593,6 @@ function formatSRTTime(seconds) {
         + "," +
         String(ms).padStart(3, "0")
     );
-
-}
-
-function removeOverlap(segments) {
-
-    const result = [];
-
-    for (let i = 0; i < segments.length; i++) {
-
-        let current = {
-            start: segments[i].start,
-            end: segments[i].end
-        };
-
-
-        if (result.length > 0) {
-
-            const previous = result[result.length - 1];
-
-
-            if (current.start < previous.end) {
-
-                current.start = previous.end;
-
-            }
-
-        }
-
-
-        // กันกรณี segment กลายเป็น 0 หรือค่าติดลบ
-        if (current.end > current.start) {
-
-            result.push(current);
-
-        }
-
-    }
-
-
-    return result;
 
 }
 
