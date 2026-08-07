@@ -4,7 +4,7 @@ let selectedFile = null;
 let isReady = false;
 let sileroState = new Float32Array(2 * 1 * 128);
 let speechSegments = [];
-let confidenceThreshold = 0.5;
+let confidenceThreshold = 0.3;
 let speechPadding = 200;
 
 const statusText = document.getElementById("status");
