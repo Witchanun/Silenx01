@@ -459,11 +459,11 @@ function applyPadding(segments) {
 
         start: Math.max(
             0,
-            segment.start - speechPadding / 1000
+            segment.start - speechPadding
         ),
 
         end:
-            segment.end + speechPadding / 1000
+            segment.end + speechPadding
 
     }));
 
@@ -523,6 +523,11 @@ analyzeBtn.addEventListener(
                 applyPadding(
                     speechSegments
                 );
+
+            console.log(
+                "Padding Value:",
+                speechPadding
+            );
 
             console.log(
                 "Final Segments:",
