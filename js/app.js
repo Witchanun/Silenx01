@@ -300,7 +300,7 @@ async function runSilero(audio) {
 
     let silenceStart = null;
 
-    const MIN_SILENCE = 0.2;
+    const MIN_SILENCE = 0.5;
 
     const CHUNK_SIZE = 512;
 
