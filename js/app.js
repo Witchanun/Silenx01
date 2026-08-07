@@ -317,6 +317,11 @@ async function runSilero(audio) {
                 i + CHUNK_SIZE
             );
 
+        console.log(
+            "Chunk Time:",
+            i / 16000
+        );
+
         const rms =
             Math.sqrt(
                 chunk.reduce(
@@ -379,14 +384,16 @@ async function runSilero(audio) {
             });
 
 
-
         const prob =
             results.output.data[0];
 
+
         console.log(
-            "AI Probability:",
+            "Time:",
+            i / 16000,
+            "Probability:",
             prob,
-            "Confidence Threshold:",
+            "Threshold:",
             confidenceThreshold
         );
 
@@ -521,27 +528,16 @@ analyzeBtn.addEventListener(
             const audioData = await extractAudio(selectedFile);
             const audioFloat = wavToFloat32(audioData);
 
+            const audioData = await extractAudio(selectedFile);
+
+            const audioFloat = wavToFloat32(audioData);
+
+            console.log(
+                "Audio Array Length:",
+                audioFloat.length
+            );
+
             await runSilero(audioFloat);
-
-
-            console.log(
-                "Raw Segments:",
-                speechSegments
-            );
-
-
-            console.log(
-                "Segment Count:",
-                speechSegments.length
-            );
-
-
-            const srtText = generateSRT(
-                speechSegments
-            );
-
-
-            generatedSRT = srtText;
 
             downloadBtn.disabled = false;
 
