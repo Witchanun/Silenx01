@@ -408,10 +408,7 @@ async function runSilero(audio) {
 
             if(speechStart === null) {
 
-                speechStart = Math.max(
-                    0,
-                    time - speechPadding / 1000
-                );
+                speechStart = time;
 
                 console.log(
                     "Padding:",
@@ -446,9 +443,7 @@ async function runSilero(audio) {
 
                 if (time - silenceStart >= MIN_SILENCE) {
 
-                    const speechEnd =
-                        time + speechPadding / 1000;
-
+                    const speechEnd = time;
 
                     speechSegments.push({
 
@@ -488,9 +483,7 @@ async function runSilero(audio) {
             start: speechStart,
 
             end:
-                (audio.length / 16000)
-                +
-                speechPadding / 1000
+                audio.length / 16000
 
         });
 
@@ -521,18 +514,32 @@ analyzeBtn.addEventListener(
         try {
             const audioData = await extractAudio(selectedFile);
             const audioFloat = wavToFloat32(audioData);
+
             await runSilero(audioFloat);
+
             console.log(
-                "Before Merge:",
+                "Before Padding:",
                 speechSegments
             );
 
-            const finalSegments = removeOverlap(speechSegments);
+
+            let finalSegments = applyPadding(speechSegments);
+
+
+            console.log(
+                "After Padding:",
+                finalSegments
+            );
+
+
+            finalSegments = removeOverlap(finalSegments);
+
 
             console.log(
                 "Final Segments:",
                 finalSegments
             );
+
 
             const srtText = generateSRT(finalSegments);
 
@@ -629,6 +636,26 @@ function removeOverlap(segments) {
     return result;
 
 }
+
+function applyPadding(segments) {
+
+    return segments.map(segment => {
+
+        return {
+            start: Math.max(
+                0,
+                segment.start - speechPadding / 1000
+            ),
+
+            end:
+                segment.end +
+                speechPadding / 1000
+        };
+
+    });
+
+}
+
 
 function generateSRT(segments) {
 
