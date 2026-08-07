@@ -534,12 +534,7 @@ analyzeBtn.addEventListener(
                 "Final Segments:",
                 finalSegments
             );
-
-            console.log(
-                "3. Final Before SRT:",
-                finalSegments
-            );
-
+    
             const srtText = generateSRT(finalSegments);
 
             generatedSRT = srtText;
