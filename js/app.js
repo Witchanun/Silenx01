@@ -297,12 +297,12 @@ async function runSilero(audio) {
     sileroState = new Float32Array(2 * 1 * 128);
 
     let speechStart = null;
-
+    let lastSpeechTime = null;
     let silenceStart = null;
 
-    const MIN_SILENCE = 0.1;
-
     const CHUNK_SIZE = 512;
+    const MIN_SILENCE = 0.2;
+
 
     for (
         let i = 0;
@@ -311,31 +311,15 @@ async function runSilero(audio) {
     ) {
 
 
-        const chunk =
-            audio.slice(
-                i,
-                i + CHUNK_SIZE
-            );
-
-        console.log(
-            "Chunk Time:",
-            i / 16000
+        const chunk = audio.slice(
+            i,
+            i + CHUNK_SIZE
         );
 
-        const rms =
-            Math.sqrt(
-                chunk.reduce(
-                    (sum, x) => sum + x * x,
-                    0
-                ) / chunk.length
-            );
-
-        // ถ้าช่วงท้ายไม่ครบ 512 ให้ข้ามก่อน
 
         if (chunk.length !== CHUNK_SIZE) {
             break;
         }
-
 
 
         const inputTensor =
@@ -347,7 +331,6 @@ async function runSilero(audio) {
                     CHUNK_SIZE
                 ]
             );
-
 
 
         const stateTensor =
@@ -362,14 +345,12 @@ async function runSilero(audio) {
             );
 
 
-
         const srTensor =
             new ort.Tensor(
                 "int64",
                 BigInt64Array.from([16000n]),
                 []
             );
-
 
 
         const results =
@@ -384,53 +365,43 @@ async function runSilero(audio) {
             });
 
 
+
         const prob =
             results.output.data[0];
-
-
-        console.log(
-            "Time:",
-            i / 16000,
-            "Probability:",
-            prob,
-            "Threshold:",
-            confidenceThreshold
-        );
-
 
 
         const time =
             i / 16000;
 
+
         console.log(
-            "AI Prob:",
-            prob,
-            "Threshold:",
-            confidenceThreshold
-        );            
+            "Time:",
+            time,
+            "Prob:",
+            prob
+        );
+
 
         if (prob > confidenceThreshold) {
-
-            silenceStart = null;
 
             if (speechStart === null) {
 
                 speechStart = time;
 
-                console.log(
-                    "Speech Start:",
-                    time,
-                    "Prob:",
-                    prob
-                );
-
             }
 
-        }
 
+            lastSpeechTime = time;
+
+            silenceStart = null;
+
+
+        }
         else {
 
+
             if (speechStart !== null) {
+
 
                 if (silenceStart === null) {
 
@@ -439,36 +410,24 @@ async function runSilero(audio) {
                 }
 
 
-                if (time - silenceStart >= MIN_SILENCE) {
-
-                    const speechEnd = time;
+                if (
+                    time - silenceStart >= MIN_SILENCE
+                ) {
 
                     speechSegments.push({
 
                         start: speechStart,
 
-                        end: speechEnd
+                        end: lastSpeechTime
 
                     });
 
 
-                    console.log(
-                        "Speech End:",
-                        speechEnd,
-                        "Duration:",
-                        speechEnd - speechStart
-                    );
-
-
-                    console.log(
-                        "End Padding:",
-                        speechPadding,
-                        "ms"
-                    );
-
-
                     speechStart = null;
+
                     silenceStart = null;
+
+                    lastSpeechTime = null;
 
                 }
 
@@ -477,28 +436,34 @@ async function runSilero(audio) {
         }
 
 
-        sileroState = new Float32Array(results.stateN.data);
-
+        sileroState =
+            new Float32Array(
+                results.stateN.data
+            );
 
     }
 
-    if (speechStart !== null) {
+
+    if (
+        speechStart !== null &&
+        lastSpeechTime !== null
+    ) {
 
         speechSegments.push({
 
             start: speechStart,
 
-            end: audio.length / 16000
+            end: lastSpeechTime
 
         });
 
-
-        console.log(
-            "Final Speech End:",
-            audio.length / 16000
-        );
-
     }
+
+
+    console.log(
+        "Raw Segments:",
+        speechSegments
+    );
 
 }
 
@@ -525,17 +490,24 @@ analyzeBtn.addEventListener(
         analyzeBtn.disabled = true;
 
         try {
+
             const audioData = await extractAudio(selectedFile);
+
             const audioFloat = wavToFloat32(audioData);
 
-            console.log(
-                "Audio Array Length:",
-                audioFloat.length
-            );
 
             await runSilero(audioFloat);
 
+
+            const srtText = generateSRT(
+                speechSegments
+            );
+
+
+            generatedSRT = srtText;
+
             downloadBtn.disabled = false;
+
 
         }
 
