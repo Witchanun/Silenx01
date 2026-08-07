@@ -4,7 +4,7 @@ let selectedFile = null;
 let isReady = false;
 let sileroState = new Float32Array(2 * 1 * 128);
 let speechSegments = [];
-let confidenceThreshold = 0.7;
+let confidenceThreshold = 0.8;
 let speechPadding = 200;
 
 const statusText = document.getElementById("status");
@@ -300,7 +300,7 @@ async function runSilero(audio) {
 
     let silenceStart = null;
 
-    const MIN_SILENCE = 0.5;
+    const MIN_SILENCE = 0.1;
 
     const CHUNK_SIZE = 512;
 
