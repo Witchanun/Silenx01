@@ -453,6 +453,22 @@ async function runSilero(audio) {
 }
 
 
+function applyPadding(segments) {
+
+    return segments.map(segment => ({
+
+        start: Math.max(
+            0,
+            segment.start - speechPadding
+        ),
+
+        end:
+            segment.end + speechPadding
+
+    }));
+
+}
+
 
 analyzeBtn.addEventListener(
     "click",
@@ -503,10 +519,20 @@ analyzeBtn.addEventListener(
             );
 
 
-            const srtText = generateSRT(
-                speechSegments
+            const finalSegments =
+                applyPadding(
+                    speechSegments
+                );
+
+            console.log(
+                "Final Segments:",
+                finalSegments
             );
 
+            const srtText =
+                generateSRT(
+                    finalSegments
+                );
 
             generatedSRT = srtText;
 
