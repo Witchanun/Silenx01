@@ -4,8 +4,8 @@ let selectedFile = null;
 let isReady = false;
 let sileroState = new Float32Array(2 * 1 * 128);
 let speechSegments = [];
-let confidenceThreshold = 0.4;
-let speechPadding = 200;
+let confidenceThreshold = 0.5;
+let speechPadding = 0.20;
 
 const statusText = document.getElementById("status");
 const videoInput = document.getElementById("videoInput");
@@ -14,29 +14,12 @@ const analyzeBtn = document.getElementById("analyzeBtn");
 const downloadBtn = document.getElementById("downloadBtn");
 const paddingSlider = document.getElementById("paddingSlider");
 const paddingValue = document.getElementById("paddingValue");
-const confidenceSlider = document.getElementById("confidenceSlider");
-const confidenceValue = document.getElementById("confidenceValue");
 const analyzeText = document.getElementById("analyzeText");
 const loader = document.getElementById("loader");
 
 let generatedSRT = "";
 
 console.log("APP JS LOADED");
-
-confidenceSlider.oninput = () => {
-
-    confidenceThreshold =
-        Number(confidenceSlider.value);
-
-    confidenceValue.innerText =
-        confidenceThreshold;
-
-    console.log(
-        "Confidence:",
-        confidenceThreshold
-    );    
-
-};
 
 paddingSlider.oninput = () => {
 
@@ -45,12 +28,12 @@ paddingSlider.oninput = () => {
     );
 
     paddingValue.innerText =
-        speechPadding;
+        speechPadding.toFixed(2);
 
     console.log(
-        "Padding Slider:",
+        "Padding:",
         speechPadding,
-        "ms"
+        "seconds"
     );
 
 };
