@@ -528,10 +528,6 @@ analyzeBtn.addEventListener(
             const audioData = await extractAudio(selectedFile);
             const audioFloat = wavToFloat32(audioData);
 
-            const audioData = await extractAudio(selectedFile);
-
-            const audioFloat = wavToFloat32(audioData);
-
             console.log(
                 "Audio Array Length:",
                 audioFloat.length
