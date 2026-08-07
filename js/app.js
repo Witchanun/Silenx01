@@ -300,7 +300,7 @@ async function runSilero(audio) {
 
     let silenceStart = null;
 
-    const MIN_SILENCE = 0.3;
+    const MIN_SILENCE = 0.2;
 
     const CHUNK_SIZE = 512;
 
@@ -446,13 +446,24 @@ async function runSilero(audio) {
 
                 if (time - silenceStart >= MIN_SILENCE) {
 
+                    const speechEnd =
+                        time + speechPadding / 1000;
+
+
                     speechSegments.push({
 
                         start: speechStart,
 
-                        end: time + speechPadding / 1000
+                        end: speechEnd
 
                     });
+
+
+                    console.log(
+                        "End Padding:",
+                        speechPadding,
+                        "ms"
+                    );
 
 
                     speechStart = null;
@@ -476,7 +487,10 @@ async function runSilero(audio) {
 
             start: speechStart,
 
-            end: audio.length / 16000
+            end:
+                (audio.length / 16000)
+                +
+                speechPadding / 1000
 
         });
 
