@@ -406,24 +406,15 @@ async function runSilero(audio) {
 
             silenceStart = null;
 
-            if(speechStart === null) {
+            if (speechStart === null) {
 
                 speechStart = time;
 
                 console.log(
-                    "Padding:",
-                    speechPadding,
-                    "ms"
-                );
-
-                console.log(
                     "Speech Start:",
                     time,
-                    "After Padding:",
-                    speechStart,
-                    "Padding:",
-                    speechPadding,
-                    "ms"
+                    "Prob:",
+                    prob
                 );
 
             }
@@ -455,6 +446,14 @@ async function runSilero(audio) {
 
 
                     console.log(
+                        "Speech End:",
+                        speechEnd,
+                        "Duration:",
+                        speechEnd - speechStart
+                    );
+
+
+                    console.log(
                         "End Padding:",
                         speechPadding,
                         "ms"
@@ -482,10 +481,15 @@ async function runSilero(audio) {
 
             start: speechStart,
 
-            end:
-                audio.length / 16000
+            end: audio.length / 16000
 
         });
+
+
+        console.log(
+            "Final Speech End:",
+            audio.length / 16000
+        );
 
     }
 
@@ -541,8 +545,6 @@ analyzeBtn.addEventListener(
 
             downloadBtn.disabled = false;
 
-            generatedSRT = srtText;
-            downloadBtn.disabled = false;
         }
 
         catch (error) {
