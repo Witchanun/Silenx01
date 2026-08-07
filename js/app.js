@@ -21,6 +21,8 @@ const loader = document.getElementById("loader");
 
 let generatedSRT = "";
 
+console.log("APP JS LOADED");
+
 confidenceSlider.oninput = () => {
 
     confidenceThreshold =
@@ -473,6 +475,8 @@ analyzeBtn.addEventListener(
     "click",
     async () => {
 
+        console.log("Analyze Click");
+
         if (!isReady) {
             alert("System is not ready yet");
             return;
@@ -491,12 +495,23 @@ analyzeBtn.addEventListener(
 
         try {
 
+            console.log("Extract Start");
+
             const audioData = await extractAudio(selectedFile);
+
+            console.log("Audio Extracted");
 
             const audioFloat = wavToFloat32(audioData);
 
+            console.log(
+                "Audio Float Length:",
+                audioFloat.length
+            );
+
 
             await runSilero(audioFloat);
+
+            console.log("Silero Done");
 
 
             console.log(
@@ -530,13 +545,6 @@ analyzeBtn.addEventListener(
 
     }
 );
-
-analyzeBtn.classList.remove("loading");
-
-analyzeText.innerText = "Start Analysis";
-
-analyzeBtn.disabled = false;
-
 
 function formatSRTTime(seconds) {
 
