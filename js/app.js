@@ -513,7 +513,7 @@ analyzeBtn.addEventListener(
                 speechSegments
             );
 
-            const finalSegments = speechSegments;
+            const finalSegments = removeOverlap(speechSegments);
 
             console.log(
                 "Final Segments:",
@@ -573,6 +573,46 @@ function formatSRTTime(seconds) {
         + "," +
         String(ms).padStart(3, "0")
     );
+
+}
+
+function removeOverlap(segments) {
+
+    const result = [];
+
+    for (let i = 0; i < segments.length; i++) {
+
+        let current = {
+            start: segments[i].start,
+            end: segments[i].end
+        };
+
+
+        if (result.length > 0) {
+
+            const previous = result[result.length - 1];
+
+
+            if (current.start < previous.end) {
+
+                current.start = previous.end;
+
+            }
+
+        }
+
+
+        // กันกรณี segment กลายเป็น 0 หรือค่าติดลบ
+        if (current.end > current.start) {
+
+            result.push(current);
+
+        }
+
+    }
+
+
+    return result;
 
 }
 
