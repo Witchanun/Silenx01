@@ -491,6 +491,11 @@ async function runSilero(audio) {
 
 }
 
+console.log(
+    "Segment Count:",
+    speechSegments.length
+);
+
 analyzeBtn.addEventListener(
     "click",
     async () => {
