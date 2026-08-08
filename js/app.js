@@ -706,4 +706,92 @@ downloadBtn.addEventListener(
     }
 );
 
+const translations = {
+
+    th: {
+        title: "SilenX",
+        subtitle: "ระบบตรวจจับเสียงพูดด้วย AI",
+        noFile: "ยังไม่ได้เลือกไฟล์",
+        startAnalysis: "เริ่มวิเคราะห์",
+        statusTitle: "สถานะ",
+        padding: "Padding:",
+        fileName: "ชื่อไฟล์:",
+        downloadSRT: "ดาวน์โหลด SRT"
+    },
+
+    en: {
+        title: "SilenX",
+        subtitle: "AI Speech Detection System",
+        noFile: "No file selected",
+        startAnalysis: "Start Analysis",
+        statusTitle: "Status",
+        padding: "Padding:",
+        fileName: "File Name:",
+        downloadSRT: "Download SRT"
+    }
+
+};
+
+
+const thaiBtn =
+    document.getElementById("thaiBtn");
+
+const englishBtn =
+    document.getElementById("englishBtn");
+
+
+function setLanguage(language) {
+
+    document
+        .querySelectorAll("[data-i18n]")
+        .forEach(element => {
+
+            const key =
+                element.getAttribute("data-i18n");
+
+            if (translations[language][key]) {
+
+                element.innerText =
+                    translations[language][key];
+
+            }
+
+        });
+
+
+    if (language === "th") {
+
+        thaiBtn.classList.add("active");
+        englishBtn.classList.remove("active");
+
+        document.documentElement.lang = "th";
+
+    }
+    else {
+
+        englishBtn.classList.add("active");
+        thaiBtn.classList.remove("active");
+
+        document.documentElement.lang = "en";
+
+    }
+
+}
+
+thaiBtn.addEventListener(
+    "click",
+    () => setLanguage("th")
+);
+
+
+englishBtn.addEventListener(
+    "click",
+    () => setLanguage("en")
+);
+
+
+// Default language
+
+setLanguage("en");
+
 startSilenX();

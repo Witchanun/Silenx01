@@ -281,3 +281,59 @@ button.loading .loader {
     box-shadow:
         0 0 0 3px rgba(0, 191, 255, 0.12);
 }
+
+/* Language Switch */
+
+.language-switch {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+
+    margin-bottom: 20px;
+}
+
+.language-switch button {
+    width: auto;
+    min-width: 55px;
+
+    padding: 7px 14px;
+    margin: 0;
+
+    border: 1px solid #333;
+    border-radius: 8px;
+
+    background: #1b1b1b;
+    color: #aaa;
+
+    font-size: 13px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: none;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.language-switch button:hover {
+    transform: translateY(-1px);
+
+    background: #222;
+    border-color: #00bfff;
+
+    box-shadow: none;
+}
+
+.language-switch button.active {
+    background: linear-gradient(135deg,
+            #00ff88,
+            #00bfff);
+
+    color: white;
+
+    border-color: transparent;
+}

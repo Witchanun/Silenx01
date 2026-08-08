@@ -1,85 +1,143 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>SilenX</title>
 
     <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
 
     <main class="container">
 
-        <h1>SilenX</h1>
-        <p class="subtitle">
+        <!-- Language Switch -->
+
+        <div class="language-switch">
+
+            <button id="thaiBtn">
+                TH
+            </button>
+
+            <button id="englishBtn">
+                EN
+            </button>
+
+        </div>
+
+
+        <h1 data-i18n="title">
+            SilenX
+        </h1>
+
+        <p class="subtitle" data-i18n="subtitle">
             AI Speech Detection System
         </p>
 
+
         <div class="upload-box">
-        
+
             <input type="file" id="videoInput" accept="video/*">
-        
-            <p id="fileName">
+
+            <p id="fileName" data-i18n="noFile">
                 No file selected
             </p>
-        
+
+
             <button id="analyzeBtn">
-                <span id="analyzeText">
+
+                <span id="analyzeText" data-i18n="startAnalysis">
                     Start Analysis
                 </span>
-            
+
                 <span id="loader" class="loader"></span>
+
             </button>
-        
+
         </div>
 
+
         <div class="status-box">
-            <h2>Status</h2>
+
+            <h2 data-i18n="statusTitle">
+                Status
+            </h2>
+
             <p id="status">
                 Starting...
             </p>
+
         </div>
+
 
         <br>
-        
-        <div class="setting-item">
-            <label>
-                Padding:
-                <span id="paddingValue">0.02</span> s
-            </label>
-        <div>
-        
-        <input type="range" id="paddingSlider" min="0" max="0.10" step="0.01" value="0.05">
+
 
         <div class="setting-item">
-            <label for="fileNameInput">
-                File Name:
+
+            <label>
+
+                <span data-i18n="padding">
+                    Padding:
+                </span>
+
+                <span id="paddingValue">
+                    0.02
+                </span>
+
+                s
+
             </label>
-        
-            <input type="text" id="fileNameInput" placeholder="SilenX">
+
+
+            <input type="range" id="paddingSlider" min="0" max="0.10" step="0.01" value="0.02">
+
         </div>
 
-        <button id="downloadBtn" disabled>
+
+        <div class="setting-item">
+
+            <label for="fileNameInput" data-i18n="fileName">
+                File Name:
+            </label>
+
+
+            <input type="text" id="fileNameInput" placeholder="SilenX">
+
+        </div>
+
+
+        <button id="downloadBtn" disabled data-i18n="downloadSRT">
             Download SRT
         </button>
+
 
     </main>
 
 
     <!-- Cross Origin Isolation -->
+
     <script src="coi-serviceworker.js"></script>
 
+
     <!-- ONNX Runtime -->
+
     <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.18.0/dist/ort.min.js"></script>
 
+
     <!-- FFmpeg -->
+
     <script src="js/ffmpeg.min.js"></script>
 
+
     <!-- Main App -->
+
     <script src="js/app.js"></script>
 
 </body>
