@@ -11,6 +11,7 @@ const statusText = document.getElementById("status");
 const videoInput = document.getElementById("videoInput");
 const fileName = document.getElementById("fileName");
 const analyzeBtn = document.getElementById("analyzeBtn");
+analyzeBtn.disabled = true;
 const downloadBtn = document.getElementById("downloadBtn");
 const paddingSlider = document.getElementById("paddingSlider");
 const paddingValue = document.getElementById("paddingValue");
@@ -103,6 +104,7 @@ async function startSilenX(){
 
         setStatus("READY 🚀");
         isReady = true;
+        analyzeBtn.disabled = false;
 
 
     }
