@@ -4,7 +4,7 @@ let selectedFile = null;
 let isReady = false;
 let sileroState = new Float32Array(2 * 1 * 128);
 let speechSegments = [];
-let confidenceThreshold = 0.3;
+let confidenceThreshold = 0.5;
 let speechPadding = 0.05;
 
 const statusText = document.getElementById("status");
@@ -278,6 +278,46 @@ function wavToFloat32(wavData) {
 async function runSilero(audio) {
 
     speechSegments = [];
+
+    const debugStartTime = 36.46;
+    const debugEndTime = 37.02;
+
+    const startSample =
+        Math.floor(debugStartTime * 16000);
+
+    const endSample =
+        Math.floor(debugEndTime * 16000);
+
+    let sum = 0;
+    let peak = 0;
+
+    for (
+        let j = startSample;
+        j < endSample &&
+        j < audio.length;
+        j++
+    ) {
+
+        const value = Math.abs(audio[j]);
+
+        sum += value * value;
+
+        if (value > peak) {
+            peak = value;
+        }
+    }
+
+    const rms = Math.sqrt(
+        sum / (endSample - startSample)
+    );
+
+    console.log(
+        "DEBUG 36.46-37.02",
+        "RMS:",
+        rms,
+        "Peak:",
+        peak
+    );
 
     sileroState = new Float32Array(2 * 1 * 128);
 
