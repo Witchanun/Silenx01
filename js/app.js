@@ -711,43 +711,55 @@ const translations = {
     th: {
         title: "SilenX",
         subtitle: "ระบบตรวจจับเสียงพูดด้วย AI",
+        description: "ตรวจจับช่วงเสียงพูดในวิดีโอ และสร้างไฟล์ SRT สำหรับนำไปใช้งานต่อใน CapCut ได้ง่าย ๆ",
+
         noFile: "ยังไม่ได้เลือกไฟล์",
         startAnalysis: "เริ่มวิเคราะห์",
         statusTitle: "สถานะ",
         padding: "Padding:",
         fileName: "ชื่อไฟล์:",
-        downloadSRT: "ดาวน์โหลด SRT"
-        description:"ตรวจจับช่วงเสียงพูดในวิดีโอ และสร้างไฟล์ SRT สำหรับนำไปใช้งานต่อใน CapCut ได้ง่าย ๆ",
+        downloadSRT: "ดาวน์โหลด SRT",
+
         howToUse: "วิธีใช้งาน",
+
         step1Title: "นำเข้าวิดีโอ",
         step1Text: "เลือกไฟล์วิดีโอที่ต้องการวิเคราะห์",
+
         step2Title: "ปรับ Padding",
         step2Text: "ปรับ Padding เพื่อกำหนดระยะเผื่อรอบช่วงเสียงพูดที่ตรวจจับได้",
+
         step3Title: "เริ่มวิเคราะห์",
         step3Text: "ให้ SilenX ตรวจจับช่วงเสียงพูดในวิดีโอ",
+
         step4Title: "ดาวน์โหลด SRT",
-        step4Text: "ตั้งชื่อไฟล์ แล้วดาวน์โหลดไฟล์ SRT ที่สร้างขึ้น",
-    }
+        step4Text: "ตั้งชื่อไฟล์ แล้วดาวน์โหลดไฟล์ SRT ที่สร้างขึ้น"
+    },
 
     en: {
         title: "SilenX",
         subtitle: "AI Speech Detection System",
+        description: "Detect speech in your video and generate an SRT subtitle file for easy editing in CapCut.",
+
         noFile: "No file selected",
         startAnalysis: "Start Analysis",
         statusTitle: "Status",
         padding: "Padding:",
         fileName: "File Name:",
         downloadSRT: "Download SRT",
-        description: "Detect speech in your video and generate an SRT subtitle file for easy editing in CapCut.",
+
         howToUse: "How to use",
+
         step1Title: "Import your video",
         step1Text: "Select the video file you want to analyze.",
+
         step2Title: "Adjust Padding",
         step2Text: "Adjust the padding to control the space around detected speech.",
+
         step3Title: "Start Analysis",
         step3Text: "Let SilenX detect the speech segments in your video.",
+
         step4Title: "Download SRT",
-        step4Text: "Enter a file name and download the generated SRT file.",
+        step4Text: "Enter a file name and download the generated SRT file."
     }
 
 };
