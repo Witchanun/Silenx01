@@ -5,7 +5,7 @@ let isReady = false;
 let sileroState = new Float32Array(2 * 1 * 128);
 let speechSegments = [];
 let confidenceThreshold = 0.5;
-let speechPadding = 0.05;
+let speechPadding = 0.02;
 
 const statusText = document.getElementById("status");
 const videoInput = document.getElementById("videoInput");
