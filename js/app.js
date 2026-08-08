@@ -726,8 +726,8 @@ const translations = {
         step3Title: "เริ่มวิเคราะห์",
         step3Text: "ให้ SilenX ตรวจจับช่วงเสียงพูดในวิดีโอ",
         step4Title: "ดาวน์โหลด SRT",
-        step4Text: "ตั้งชื่อไฟล์ แล้วดาวน์โหลดไฟล์ SRT ที่สร้างขึ้น"
-    },
+        step4Text: "ตั้งชื่อไฟล์ แล้วดาวน์โหลดไฟล์ SRT ที่สร้างขึ้น",
+    }
 
     en: {
         title: "SilenX",
@@ -738,7 +738,7 @@ const translations = {
         padding: "Padding:",
         fileName: "File Name:",
         downloadSRT: "Download SRT",
-        description: "Detect speech in your video and generate an SRT subtitle file for easy editing in CapCut."
+        description: "Detect speech in your video and generate an SRT subtitle file for easy editing in CapCut.",
         howToUse: "How to use",
         step1Title: "Import your video",
         step1Text: "Select the video file you want to analyze.",
@@ -747,7 +747,7 @@ const translations = {
         step3Title: "Start Analysis",
         step3Text: "Let SilenX detect the speech segments in your video.",
         step4Title: "Download SRT",
-        step4Text: "Enter a file name and download the generated SRT file."
+        step4Text: "Enter a file name and download the generated SRT file.",
     }
 
 };
