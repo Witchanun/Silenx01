@@ -394,18 +394,57 @@ async function runSilero(audio) {
         const prob =
             results.output.data[0];
 
-
         const time =
             i / 16000;
+
+
+        // DEBUG: ตรวจพลังงานเสียงของ chunk นี้
+
+        const chunkStart = i;
+
+        const chunkEnd = Math.min(
+            i + CHUNK_SIZE,
+            audio.length
+        );
+
+        let chunkSum = 0;
+        let chunkPeak = 0;
+
+        for (
+            let j = chunkStart;
+            j < chunkEnd;
+            j++
+        ) {
+
+            const value =
+                Math.abs(audio[j]);
+
+            chunkSum +=
+                value * value;
+
+            if (value > chunkPeak) {
+                chunkPeak = value;
+            }
+
+        }
+
+        const chunkRMS =
+            Math.sqrt(
+                chunkSum /
+                (chunkEnd - chunkStart)
+            );
 
 
         console.log(
             "Time:",
             time,
+            "RMS:",
+            chunkRMS,
+            "Peak:",
+            chunkPeak,
             "Prob:",
             prob
         );
-
 
         if (prob > confidenceThreshold) {
 
