@@ -449,6 +449,49 @@ async function runSilero(audio) {
 
 }
 
+function mergeOverlappingSegments(segments) {
+
+    if (segments.length === 0) {
+        return [];
+    }
+
+    const sortedSegments =
+        [...segments].sort(
+            (a, b) => a.start - b.start
+        );
+
+    const merged = [];
+
+    for (const segment of sortedSegments) {
+
+        const last =
+            merged[merged.length - 1];
+
+        if (
+            last &&
+            segment.start <= last.end
+        ) {
+
+            last.end =
+                Math.max(
+                    last.end,
+                    segment.end
+                );
+
+        }
+        else {
+
+            merged.push({
+                start: segment.start,
+                end: segment.end
+            });
+
+        }
+
+    }
+
+    return merged;
+}
 
 function applyPadding(segments) {
 
@@ -627,9 +670,14 @@ downloadBtn.addEventListener(
         }
 
 
-        const finalSegments =
+        const paddedSegments =
             applyPadding(
                 speechSegments
+            );
+
+        const finalSegments =
+            mergeOverlappingSegments(
+                paddedSegments
             );
 
 
