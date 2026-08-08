@@ -17,8 +17,6 @@ const paddingValue = document.getElementById("paddingValue");
 const analyzeText = document.getElementById("analyzeText");
 const loader = document.getElementById("loader");
 
-let generatedSRT = "";
-
 console.log("APP JS LOADED");
 
 paddingSlider.oninput = () => {
@@ -62,8 +60,6 @@ async function startSilenX(){
             throw new Error("ONNX Runtime not found");
 
         }
-
-        setStatus("Loading ONNX Runtime...");
 
         setStatus("✅ ONNX Runtime Loaded");
 
@@ -126,11 +122,20 @@ videoInput.addEventListener(
     "change",
     (event) => {
 
-        selectedFile = event.target.files[0];
-
+        selectedFile =
+            event.target.files[0];
 
         if (selectedFile) {
-            fileName.innerText = selectedFile.name;
+
+            fileName.innerText =
+                selectedFile.name;
+
+        }
+        else {
+
+            fileName.innerText =
+                "No file selected";
+
         }
 
     }
@@ -279,46 +284,6 @@ async function runSilero(audio) {
 
     speechSegments = [];
 
-    const debugStartTime = 36.46;
-    const debugEndTime = 37.02;
-
-    const startSample =
-        Math.floor(debugStartTime * 16000);
-
-    const endSample =
-        Math.floor(debugEndTime * 16000);
-
-    let sum = 0;
-    let peak = 0;
-
-    for (
-        let j = startSample;
-        j < endSample &&
-        j < audio.length;
-        j++
-    ) {
-
-        const value = Math.abs(audio[j]);
-
-        sum += value * value;
-
-        if (value > peak) {
-            peak = value;
-        }
-    }
-
-    const rms = Math.sqrt(
-        sum / (endSample - startSample)
-    );
-
-    console.log(
-        "DEBUG 36.46-37.02",
-        "RMS:",
-        rms,
-        "Peak:",
-        peak
-    );
-
     sileroState = new Float32Array(2 * 1 * 128);
 
     let speechStart = null;
@@ -397,55 +362,7 @@ async function runSilero(audio) {
         const time =
             i / 16000;
 
-
-        // DEBUG: ตรวจพลังงานเสียงของ chunk นี้
-
-        const chunkStart = i;
-
-        const chunkEnd = Math.min(
-            i + CHUNK_SIZE,
-            audio.length
-        );
-
-        let chunkSum = 0;
-        let chunkPeak = 0;
-
-        for (
-            let j = chunkStart;
-            j < chunkEnd;
-            j++
-        ) {
-
-            const value =
-                Math.abs(audio[j]);
-
-            chunkSum +=
-                value * value;
-
-            if (value > chunkPeak) {
-                chunkPeak = value;
-            }
-
-        }
-
-        const chunkRMS =
-            Math.sqrt(
-                chunkSum /
-                (chunkEnd - chunkStart)
-            );
-
-
-        console.log(
-            "Time:",
-            time,
-            "RMS:",
-            chunkRMS,
-            "Peak:",
-            chunkPeak,
-            "Prob:",
-            prob
-        );
-
+      
         if (prob > confidenceThreshold) {
 
             if (speechStart === null) {
@@ -461,6 +378,7 @@ async function runSilero(audio) {
 
 
         }
+
         else {
 
 
@@ -553,8 +471,6 @@ analyzeBtn.addEventListener(
     "click",
     async () => {
 
-        console.log("Analyze Click");
-
         if (!isReady) {
             alert("System is not ready yet");
             return;
@@ -573,30 +489,11 @@ analyzeBtn.addEventListener(
 
         try {
 
-            console.log("Extract Start");
-
             const audioData = await extractAudio(selectedFile);
-
-            console.log("Audio Extracted");
 
             const audioFloat = wavToFloat32(audioData);
 
-            console.log(
-                "Audio Float Length:",
-                audioFloat.length
-            );
-
-
             await runSilero(audioFloat);
-
-            console.log("Silero Done");
-
-
-            console.log(
-                "Raw Segments:",
-                speechSegments
-            );
-
 
             console.log(
                 "Raw Segments:",
@@ -734,12 +631,6 @@ downloadBtn.addEventListener(
             applyPadding(
                 speechSegments
             );
-
-
-        console.log(
-            "Download Final Segments:",
-            finalSegments
-        );
 
 
         const srtText =
