@@ -16,6 +16,7 @@ const paddingSlider = document.getElementById("paddingSlider");
 const paddingValue = document.getElementById("paddingValue");
 const analyzeText = document.getElementById("analyzeText");
 const loader = document.getElementById("loader");
+const fileNameInput = document.getElementById("fileNameInput");
 
 console.log("APP JS LOADED");
 
@@ -652,7 +653,18 @@ function downloadSRT(text) {
 
     a.href = url;
 
-    a.download = "SilenX.srt";
+    let fileName =
+        fileNameInput.value.trim();
+
+    if (fileName === "") {
+        fileName = "SilenX";
+    }
+
+    if (!fileName.toLowerCase().endsWith(".srt")) {
+        fileName += ".srt";
+    }
+
+    a.download = fileName;
 
     a.click();
 
