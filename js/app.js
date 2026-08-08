@@ -717,6 +717,7 @@ const translations = {
         padding: "Padding:",
         fileName: "ชื่อไฟล์:",
         downloadSRT: "ดาวน์โหลด SRT"
+        description:"ตรวจจับช่วงเสียงพูดในวิดีโอ และสร้างไฟล์ SRT สำหรับนำไปใช้งานต่อใน CapCut ได้ง่าย ๆ",
     },
 
     en: {
@@ -727,7 +728,8 @@ const translations = {
         statusTitle: "Status",
         padding: "Padding:",
         fileName: "File Name:",
-        downloadSRT: "Download SRT"
+        downloadSRT: "Download SRT",
+        description: "Detect speech in your video and generate an SRT subtitle file for easy editing in CapCut."
     }
 
 };
