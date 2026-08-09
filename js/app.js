@@ -711,9 +711,9 @@ downloadBtn.addEventListener(
 const translations = {
 
     th: {
-        title: "SilenX",
-        subtitle: "ระบบตรวจจับเสียงพูดด้วย AI",
-        description: "ตรวจจับช่วงเสียงพูดในวิดีโอ และสร้างไฟล์ SRT สำหรับนำไปใช้งานต่อใน CapCut ได้ง่าย ๆ",
+        title: "SilenX – โปรแกรมตัดช่วงเงียบจากวิดีโอ",
+        subtitle: "ระบบตรวจจับช่วงเสียงพูดด้วย AI",
+        description: "ตรวจจับช่วงเสียงพูดและช่วงเงียบในวิดีโอ พร้อมสร้างไฟล์ SRT สำหรับนำไปใช้งานต่อใน CapCut ได้ง่าย ๆ",
 
         noFile: "ยังไม่ได้เลือกไฟล์",
         startAnalysis: "เริ่มวิเคราะห์",
@@ -731,16 +731,16 @@ const translations = {
         step2Text: "ปรับ Padding เพื่อกำหนดระยะเผื่อรอบช่วงเสียงพูดที่ตรวจจับได้",
 
         step3Title: "เริ่มวิเคราะห์",
-        step3Text: "ให้ SilenX ตรวจจับช่วงเสียงพูดในวิดีโอ",
+        step3Text: "ให้ SilenX ตรวจจับช่วงเสียงพูดและช่วงเงียบในวิดีโอ",
 
         step4Title: "ดาวน์โหลด SRT",
         step4Text: "ตั้งชื่อไฟล์ แล้วดาวน์โหลดไฟล์ SRT ที่สร้างขึ้น"
     },
 
     en: {
-        title: "SilenX",
+        title: "SilenX – Video Silence Remover",
         subtitle: "AI Speech Detection System",
-        description: "Detect speech in your video and generate an SRT subtitle file for easy editing in CapCut.",
+        description: "Detect speech and silent parts in your video and generate an SRT subtitle file for easy editing in CapCut.",
 
         noFile: "No file selected",
         startAnalysis: "Start Analysis",
@@ -758,7 +758,7 @@ const translations = {
         step2Text: "Adjust the padding to control the space around detected speech.",
 
         step3Title: "Start Analysis",
-        step3Text: "Let SilenX detect the speech segments in your video.",
+        step3Text: "Let SilenX detect speech and silent parts in your video.",
 
         step4Title: "Download SRT",
         step4Text: "Enter a file name and download the generated SRT file."

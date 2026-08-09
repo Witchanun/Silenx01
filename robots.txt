@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://witchanun.github.io/video-silence-remover/sitemap.xml
